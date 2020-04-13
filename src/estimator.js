@@ -30,7 +30,7 @@ const covid19ImpactEstimator = (data) => {
   const timeFrame = getTimeFrame(timeToElapse, periodType);
 
   const infectionsByRequestedTime = (infected, actualTime) => {
-    const multiplier = (2 ** Math.ceil(actualTime / 3));
+    const multiplier = (2 ** Math.round(actualTime / 3));
     // const multiplier = (2 ** Math.trunc(actualTime / 3));
 
     const infectiosByTime = Math.trunc(infected * multiplier);
