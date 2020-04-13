@@ -19,7 +19,7 @@ const covid19ImpactEstimator = (data) => {
   const getTimeFrame = (period) => {
     switch (periodType) {
       case months:
-        return period * 30;
+        return period * 31;
       case weeks:
         return period * 7;
       default:
