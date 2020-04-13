@@ -7,7 +7,7 @@ const startTime = null;
 const endTime = null;
 
 router.post('/', (req, res) => {
-  res.send(estimator(req.body));
+  res.status(200).send(estimator(req.body));
 });
 
 router.post('/:type', (req, res) => {
@@ -19,20 +19,22 @@ router.post('/:type', (req, res) => {
       trim: true
     });
     myEstimate = builder.buildObject(myEstimate);
-    res.send(myEstimate);
+    res.header('Content-Type', 'text/xml');
+    res.status(200).send(myEstimate);
   } else {
-    res.send(myEstimate);
+    // json
+    res.status(200).send(myEstimate);
   }
 });
 
 router.get('/logs', (req, res) => {
-  // Read
+  // Read server.log
   fs.readFile('server.log', 'utf8', (err, file) => {
     if (err) {
       // show the error
     } else {
       // return contents of the file
-      res.send(file);
+      res.status(200).send(file);
     }
   });
 });
