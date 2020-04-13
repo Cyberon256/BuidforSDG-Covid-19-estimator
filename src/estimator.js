@@ -41,12 +41,18 @@ const covid19ImpactEstimator = (data) => {
   outPut.impact.currentlyInfected = current;
   outPut.severeImpact.currentlyInfected = severe;
 
-  outPut.impact.infectionsByRequestedTime = Math.trunc(infectionsByRequestedTime(current, timeFrame));
-  outPut.severeImpact.infectionsByRequestedTime = Math.trunc(infectionsByRequestedTime(severe, timeFrame));
+  outPut.impact.infectionsByRequestedTime = (
+    Math.trunc(infectionsByRequestedTime(current, timeFrame)
+    );
+  outPut.severeImpact.infectionsByRequestedTime = (
+    Math.trunc(infectionsByRequestedTime(severe, timeFrame)
+    );
 
   // Challenge 2
 
-  outPut.impact.severeCasesByRequestedTime = Math.trunc(outPut.impact.infectionsByRequestedTime * 0.15);
+  outPut.impact.severeCasesByRequestedTime = (
+    Math.trunc(outPut.impact.infectionsByRequestedTime * 0.15)
+    );
   outPut.severeImpact.severeCasesByRequestedTime = (
     outPut.severeImpact.infectionsByRequestedTime * 0.15
   );
