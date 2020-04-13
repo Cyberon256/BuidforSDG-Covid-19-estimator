@@ -9,17 +9,16 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: {}
   };
 
-  const currentlyInfected = (factor) => reportedCases * factor;
+  const currentlyInfected = (factor) => Math.trunc(reportedCases * factor);
 
   // compute timeFrame in days
-  // const days = 'days'
   const weeks = 'weeks';
   const months = 'months';
 
-  const getTimeFrame = (period) => {
-    switch (periodType) {
+  const getTimeFrame = (period, pType) => {
+    switch (pType) {
       case months:
-        return period * 31;
+        return period * 30;
       case weeks:
         return period * 7;
       default:
@@ -30,8 +29,8 @@ const covid19ImpactEstimator = (data) => {
   const timeFrame = getTimeFrame(timeToElapse, periodType);
 
   const infectionsByRequestedTime = (infected, actualTime) => {
-    const multiplier = (2 ** Math.floor(actualTime / 3));
-    // const multiplier = (2 ** Math.trunc(actualTime / 3));
+    // const multiplier = (2 ** Math.floor(actualTime / 3));
+    const multiplier = (2 ** Math.trunc(actualTime / 3));
 
     const infectiosByTime = Math.trunc(infected * multiplier);
     return (infectiosByTime);
@@ -42,21 +41,23 @@ const covid19ImpactEstimator = (data) => {
   outPut.impact.currentlyInfected = current;
   outPut.severeImpact.currentlyInfected = severe;
 
-  outPut.impact.infectionsByRequestedTime = infectionsByRequestedTime(current, timeFrame);
-  outPut.severeImpact.infectionsByRequestedTime = infectionsByRequestedTime(severe, timeFrame);
+  outPut.impact.infectionsByRequestedTime = Math.trunc(infectionsByRequestedTime(current, timeFrame));
+  outPut.severeImpact.infectionsByRequestedTime = Math.trunc(infectionsByRequestedTime(severe, timeFrame));
 
   // Challenge 2
 
-  outPut.impact.severeCasesByRequestedTime = outPut.impact.infectionsByRequestedTime * 0.15;
+  outPut.impact.severeCasesByRequestedTime = Math.trunc(outPut.impact.infectionsByRequestedTime * 0.15);
   outPut.severeImpact.severeCasesByRequestedTime = (
     outPut.severeImpact.infectionsByRequestedTime * 0.15
   );
 
   outPut.impact.hospitalBedsByRequestedTime = (
-    Math.ceil(0.35 * totalHospitalBeds) - outPut.impact.severeCasesByRequestedTime
+    // Math.ceil(0.35 * totalHospitalBeds) - outPut.impact.severeCasesByRequestedTime
+    Math.trunc(0.35 * totalHospitalBeds) - outPut.impact.severeCasesByRequestedTime
   );
   outPut.severeImpact.hospitalBedsByRequestedTime = (
-    Math.ceil(0.35 * totalHospitalBeds) - outPut.severeImpact.severeCasesByRequestedTime
+    // Math.ceil(0.35 * totalHospitalBeds) - outPut.severeImpact.severeCasesByRequestedTime
+    Math.trunc(0.35 * totalHospitalBeds) - outPut.severeImpact.severeCasesByRequestedTime
   );
 
   // Challenge 3
