@@ -26,12 +26,12 @@ router.post('/:type', (req, res) => {
 
 router.get('/logs', (req, res) => {
   // Read server.log
-  fs.readFile('server.log', 'utf8', (err, file) => {
+  fs.readFile('logs.txt', 'utf8', (err, file) => {
     if (err) {
       // console.log(err)
     } else {
       // return contents of the file
-      res.type('text/plain;charset=UTF-8');
+      res.type('text');
       // res.type('text/plain');
       res.status(200).send(file);
     }
