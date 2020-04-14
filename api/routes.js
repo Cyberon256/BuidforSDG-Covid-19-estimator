@@ -19,7 +19,7 @@ router.post('/:type', (req, res) => {
       trim: true
     });
     myEstimate = builder.buildObject(myEstimate);
-    res.header('Content-Type', 'text/xml');
+    res.type(​'​application/xml​'​);
     res.status(200).send(myEstimate);
   } else {
     // json
@@ -33,7 +33,7 @@ router.get('/logs', (req, res) => {
     if (err) {
       // show the error
     } else {
-      // return contents of the file
+      res​.​type​(​'​text/plain​'​);
       res.status(200).send(file);
     }
   });
